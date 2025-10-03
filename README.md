@@ -29,7 +29,8 @@ where:
 - "dialect" should be the name of the DBMS
 - "host" should be the URI used to connect to the DBMS, possibly including the port.
 - "username" should be the name of the user used to connect to the DBMS
-- "pass"
+- "password" is the passord for DBMS authentication
+- "database" is the name of the database which to connect
 
 
 ## Running/testing the script
