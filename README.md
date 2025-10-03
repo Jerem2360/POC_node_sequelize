@@ -15,12 +15,12 @@ Create a 'db_sessions.json' file with the following content:
 
 ```json
 {
-    "mySession": {   // session name, used to select session in code
-        "dialect": "mysql",  // can be any sql dialect (e.g. postgre, mongo, ...)
-        "host": "127.0.0.1:3307",  // host for connection to DBMS
-        "username": "root",  // DBMS user
-        "password": "MyPassword",  // DBMS password
-        "database": "mydatabase"  // database name
+    "mySession": {
+        "dialect": "mysql",
+        "host": "127.0.0.1:3307",
+        "username": "root",
+        "password": "MyPassword",
+        "database": "mydatabase"
     }
 }
 ```
