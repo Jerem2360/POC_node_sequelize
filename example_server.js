@@ -103,8 +103,11 @@ const server = createServer((req, res) => {
     })
 });
 
-const hostname = '127.0.0.1';
-const port = 3001;
+
+let config = JSON.parse(readFileSync('config.json',{encoding: 'utf-8'}));
+
+let hostname = config['host'];
+let port = config['port'];
 
 server.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
