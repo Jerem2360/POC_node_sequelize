@@ -24,6 +24,12 @@ Create a 'db_sessions.json' file with the following content:
     }
 }
 ```
+where:
+- "mySession" is replaced by the name of the session
+- "dialect" should be the name of the DBMS
+- "host" should be the URI used to connect to the DBMS, possibly including the port.
+- "username" should be the name of the user used to connect to the DBMS
+- "pass"
 
 
 ## Running/testing the script
