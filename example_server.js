@@ -3,16 +3,15 @@ import { Sequelize, DataTypes } from 'sequelize';
 import { readFileSync } from 'fs'
 
 
-function db_connect(session, uri) {
-    var sessions = JSON.parse(readFileSync('login.json', {encoding: 'utf-8'}));
-    var password = sessions[session];
-    var username = session;
+function db_connect(session_name) {
+    let sessions = JSON.parse(readFileSync('db_sessions.json', {encoding: 'utf-8'}));
+    let session = sessions[session_name]
 
-    var uri = `mysql:${username}@${uri}`;
+    let uri = `${session['dialect']}:${session['username']}@${session['host']}`;
 
-    var result = new Sequelize(uri, {
-        password: password,
-        database: 'capstone_project_2025_1'
+    let result = new Sequelize(uri, {
+        password: session['password'],
+        database: session['database']
     });
     result.authenticate();
     return result;
@@ -34,7 +33,7 @@ function find_user(name) {
 }
 
 
-const sequelize = db_connect('root', '127.0.0.1:3307');
+const sequelize = db_connect('capstone_project_2025_1');
 
 const PhoneNumber = sequelize.define('phone_numbers', {
     id: {
@@ -69,7 +68,7 @@ const User = sequelize.define('users', {
 });
 
 
-PhoneNumber.hasOne(User, {foreignKey: "phone_id"});
+PhoneNumber.hasOne(User, { foreignKey: "phone_id" });
 User.belongsTo(PhoneNumber, { foreignKey: 'phone_id' });
 
 
@@ -95,8 +94,12 @@ const server = createServer((req, res) => {
                 'email': user.email,
                 'phone_number': user.phone_number
             }));
+        }).catch(reason => {
+            console.log("User not found.")
+            res.statusCode = 404
+            res.setHeader('Content-Type', 'text/plain');
+            res.end('Error: User not found.')
         });
-
     })
 });
 
